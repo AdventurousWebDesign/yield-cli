@@ -1,0 +1,20 @@
+<phpunit bootstrap="./vendor/autoload.php" colors="true">
+  <php>
+    <server name="KERNEL_DIR" value="./app/" />
+  </php>
+  <testsuites>
+    <testsuite name="helloWorld">
+      <directory>tests</directory>
+    </testsuite>
+  </testsuites>
+  <logging>
+    <log type="coverage-text" target="php://stdout" showUncoveredFiles="true"/>
+    <log type="coverage-clover" target="build/logs/clover.xml"/>
+  </logging>
+
+  <filter>
+    <whitelist processUncoveredFilesFromWhitelist="true">
+      <directory suffix=".php">src</directory>
+    </whitelist>
+  </filter>
+</phpunit>

@@ -1,0 +1,13 @@
+<?php
+
+require __DIR__.'/vendor/autoload.php';
+
+use Symfony\Component\Console\Application as App;
+use YieldCLI\Command\AnalyzeCommand;
+
+$application = new App();
+
+$application->add(new AnalyzeCommand());
+
+$application->run();
+
