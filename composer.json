@@ -3,11 +3,11 @@
     "description": "A command line interface to yield time tracker",
     "type": "project",
     "require": {
-        "symfony/console": "^3.3",
-        "symfony/symfony": "^3.3"
+        "symfony/console": "^3.3"
     },
     "require-dev": {
-        "phpunit/phpunit": "^6.2",
+        "symfony/symfony": "^3.3",
+        "phpunit/phpunit": "@stable",
         "satooshi/php-coveralls": "dev-master"
     },
     "autoload": {
