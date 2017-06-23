@@ -3,7 +3,8 @@
     "description": "A command line interface to yield time tracker",
     "type": "project",
     "require": {
-        "symfony/console": "^3.3"
+        "symfony/console": "^3.3",
+        "symfony/property-access": "^3.3"
     },
     "require-dev": {
         "symfony/symfony": "^3.3",
