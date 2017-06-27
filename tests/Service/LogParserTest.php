@@ -7,6 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class LogParserTest extends KernelTestCase
 {
+    const DDAY = '1944-06-06';
+
     /**
      * The Parser, instantiated.
      *
@@ -19,7 +21,9 @@ class LogParserTest extends KernelTestCase
         $logDir = __DIR__.'/../../build';
 
         $this->logParser = new LogParser(compact('logDir'));
-    }
+
+        copy(__DIR__.'/../fixtures/'.self::DDAY.'.log', __DIR__.'/../../build/'.self::DDAY.'.log');
+    }//end setUp()
 
     /**
      * Tests read with the wrong type or param.
@@ -41,5 +45,39 @@ class LogParserTest extends KernelTestCase
     {
         $this->logParser->read('1972-01-12');
     }//end testConstruct()
+
+    /**
+     * Reads a *valid* log file.
+     */
+    public function testReadWithDate()
+    {
+        $this->logParser->read(self::DDAY);
+    }//end testReadWithDate()
+
+    /**
+     * Be sure that an alternatively instantiated class operates independently.
+     */
+    public function testAlternativeInstantiation()
+    {
+        $altParser = new LogParser(['logDir' => 'foo']);
+
+        $this->assertEquals('foo', $altParser->logDir);
+    }//end testAlternativeInstantiation()
+
+    /**
+     * Test reading an unreadable log file.
+     *
+     * @expectedException        \Exception
+     * @expectedExceptionMessage Could not read the log file
+     */
+    public function testUnreadableLog()
+    {
+        $day = date('Y-m-d');
+
+        copy(__DIR__.'/../fixtures/unreadable.log', __DIR__.'/../../build/'.$day.'.log');
+        chmod(__DIR__.'/../../build/'.$day.'.log', '222');
+
+        $this->logParser->read($day);
+    }//end testUnreadableLog()
 }//end class
 

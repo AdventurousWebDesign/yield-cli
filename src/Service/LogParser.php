@@ -71,7 +71,7 @@ class LogParser
         }
 
         if (false === is_readable($path)) {
-            throw new \Exception('Cannot read the log file '.$path.'. (Do you have the correct permissions?)');
+            throw new \Exception('Could not read the log file '.$path.'. (Do you have the correct permissions?)');
         }
 
         return $path;
