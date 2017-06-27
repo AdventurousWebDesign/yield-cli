@@ -20,6 +20,10 @@ class LogParserTest extends KernelTestCase
     {
         $logDir = __DIR__.'/../../build';
 
+        if (false === file_exists($logDir)) {
+            mkdir($logDir);
+        }
+
         $this->logParser = new LogParser(compact('logDir'));
 
         copy(__DIR__.'/../fixtures/'.self::DDAY.'.log', __DIR__.'/../../build/'.self::DDAY.'.log');
