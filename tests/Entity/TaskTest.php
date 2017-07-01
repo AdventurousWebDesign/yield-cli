@@ -1,15 +1,17 @@
 <?php
 
-namespace YieldCLI\tests\Command;
+namespace YieldCLI\tests\Entity;
 
 use YieldCLI\Entity\Day;
 use YieldCLI\Entity\Task;
+use YieldCLI\Entity\TaskLength;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class TaskTest extends KernelTestCase
 {
     /**
-     * Tests the ability to use the getters and setters of the entity forthrightly.
+     * Tests the ability to use the straightforward getters and setters of the
+     * entity easily..
      *
      * @return void
      */
@@ -20,8 +22,17 @@ class TaskTest extends KernelTestCase
         $task->setName('Do laundry!');
 
         $this->assertEquals('Do laundry!', $task->getName());
+    }
 
-        $day = new Day();
+    /**
+     * Tests that a day and task can associate dependably.
+     *
+     * @return void
+     */
+    public function testBiDirectionalDayHaving()
+    {
+        $task = new Task();
+        $day  = new Day();
 
         $this->assertNull($task->getDay());
 
@@ -29,6 +40,23 @@ class TaskTest extends KernelTestCase
 
         $this->assertEquals($day, $task->getDay());
         $this->assertEquals($day->getTasks()[0], $task);
-    }//end testGettersAndSetters()
+    }//end testBiDirectionalDayHaving()
+
+    public function testLengthSetting()
+    {
+        $task   = new Task();
+
+        $task->setLength('1h5m');
+
+        $this->assertEquals(1, $task->getLength()->getHours());
+        $this->assertEquals(5, $task->getLength()->getMinutes());
+
+        $length = new TaskLength('2h30m');
+
+        $task->setLength($length);
+
+        $this->assertEquals(2, $task->getLength()->getHours());
+        $this->assertEquals(30, $task->getLength()->getMinutes());
+    }//end testLengthSetting()
 }//end class
 

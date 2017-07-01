@@ -19,6 +19,20 @@ class Task
     protected $day;
 
     /**
+     * Length the task lasted for.
+     *
+     * @var TaskLength
+     */
+    protected $length;
+
+    /**
+     * The associated project
+     *
+     * @var Project
+     */
+    protected $project;
+
+    /**
      * Getter for name
      *
      * @return string
@@ -55,7 +69,7 @@ class Task
     /**
      * Setter for day. Adds this task to the list if it isn't already present.
      *
-     * @param Day $Day
+     * @param Day $day
      *
      * @return Task
      */
@@ -69,4 +83,35 @@ class Task
 
         return $this;
     }//end setDay()
+
+    /**
+     * Getter for length
+     *
+     * @return TaskLength
+     */
+    public function getLength()
+    {
+        return $this->length;
+    }//end getLength()
+
+    /**
+     * Setter for length
+     *
+     * @param mixed $length
+     * @return Task
+     */
+    public function setLength($length)
+    {
+        if ($length instanceof TaskLength) {
+            $lengthVal = $length;
+        }
+
+        if (true === is_string($length)) {
+            $lengthVal = new TaskLength($length);
+        }
+
+        $this->length = $lengthVal;
+
+        return $this;
+    }//end setLength()
 }//end class
